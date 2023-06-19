@@ -1,70 +1,43 @@
 
 import json
 import meraki
+import requests
 import tokens
 
-dashboard = meraki.DashboardAPI(tokens.API_KEY, suppress_logging=True)
-delay = 2
+# Define your variables
+device_serial_number = ""
+device_serial_numbers = []
 
 
-def getDeviceName(deviceSerialNumbers):
+# Function to reboot a single device using the request module
+def reboot_device(device_serial):
+   
+    base_url = "https://api.meraki.com/api/v1"
+    resource_path = f"/devices/{device_serial}/reboot"
+    url = base_url + resource_path
 
-    deviceName = []
+    payload = None
 
-    for serial in deviceSerialNumbers:
-        try:
-            response = dashboard.devices.getDevice(serial)
-            print(f"{response['lanIp']}")
+    headers = {
+        "Accept": "application/json",
+        "X-Cisco-Meraki-API-Key": tokens.API_KEY
+    }
 
-            deviceName.append(response['name'])
-        except:
+    response = requests.request('POST', url, headers=headers, data = payload)
+
+    json_data = response.json()
+    print(json.dumps(json_data, indent=2))
+
+
+# Function to reboot a list of devices using the meraki sdk
+def reboot_devices_in_list(device_serials):
+
+    if len(device_serials) != 0:  # Reboot specific list of APs
+        for item in device_serials:
+            response = dashboard.devices.rebootDevice(item)
             print(response)
-            continue
-    deviceName.sort()
-    print(deviceName)
-
-    return(deviceName)
 
 
-def rebootDevice(deviceSerialNumbers):
-    rebootStatus = []
-
-    if len(deviceSerialNumbers) != 0:  # Reboot specific list of APs
-        for item in deviceSerialNumbers:
-            try:
-                reboot = dashboard.devices.rebootDevice(serial=item)
-                rebootStatus.append({"serial": item, "status": reboot})
-                time.sleep(delay)
-            except:
-                print(f"Exception error: {item} -Check SDK Logs. Continuing.")
-                continue
-    return(rebootStatus)
-
-
-
-def rebootStatus(rebootResults):
-    passCount = 0
-    failCount = 0
-    results = []
-    apFailList = []
-
-    for item in rebootResults:
-        if item["status"]["success"] is True:
-            passCount += 1
-        else:
-            failCount += 1
-            apFailList.append(item["serial"])
-
-    results.append({"apRebooted": passCount, "apNotRebooted": failCount, "apFailList": apFailList})
-    print(results)
-    return (results)
-
-
-if __name__ == '__main__':
-
-
-    deviceSerialNumbers = []
-
-    print("Starting reboot script.  It may take several minutes to complete.")
-    rebootAP = rebootDevice(deviceSerialNumbers)
-    status = rebootStatus(rebootAP)
+# Call the reboot functions
+reboot_ap = reboot_device(device_serial_number)
+reboot_aps = reboot_devices_in_list(device_serial_numbers)
