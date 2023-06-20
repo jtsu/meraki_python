@@ -1,7 +1,6 @@
 # Reboot Device by Serial numbers
-# Meraki API Reference: 
+# Meraki API Reference:
 # https://developer.cisco.com/meraki/api-latest/#!reboot-a-device
-
 
 import json
 import meraki
@@ -12,9 +11,12 @@ import tokens
 device_serial_number = ""
 device_serial_numbers = []
 
+dashboard = meraki.DashboardAPI(tokens.API_KEY, suppress_logging=True)
+
+
 # Function to reboot a single device using the request module
 def reboot_device(device_serial):
-   
+
     base_url = "https://api.meraki.com/api/v1"
     resource_path = f"/devices/{device_serial}/reboot"
     url = base_url + resource_path
@@ -34,11 +36,10 @@ def reboot_device(device_serial):
 
 # Function to reboot a list of devices using the meraki sdk
 def reboot_devices_in_list(device_serials):
+    for item in device_serials:
+        response = dashboard.devices.rebootDevice(item)
+        print(response)
 
-    if len(device_serials) != 0:  # Reboot specific list of APs
-        for item in device_serials:
-            response = dashboard.devices.rebootDevice(item)
-            print(response)
 
 
 # Call the reboot functions
