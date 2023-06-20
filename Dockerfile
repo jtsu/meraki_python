@@ -5,7 +5,7 @@
 # docker build -t downey .
 
 # Run container
-# docker run -it -v /Users/jtsu/Desktop/DowneyDocker/merakiScripts:/merakiScripts -w /merakiScripts downey bash
+# docker run -it -v /Users/jtsu/Desktop/DowneyDocker/myScripts:/myScripts -w /myScripts downey bash
 # -v: volume - map local host path to container path
 # -w: working dir in container
 # -it: interactive model
