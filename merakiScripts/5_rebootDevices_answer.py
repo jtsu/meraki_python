@@ -1,3 +1,7 @@
+# Reboot Device by Serial numbers
+# Meraki API Reference: 
+# https://developer.cisco.com/meraki/api-latest/#!reboot-a-device
+
 
 import json
 import meraki
@@ -7,7 +11,6 @@ import tokens
 # Define your variables
 device_serial_number = ""
 device_serial_numbers = []
-
 
 # Function to reboot a single device using the request module
 def reboot_device(device_serial):

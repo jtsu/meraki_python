@@ -1,9 +1,6 @@
-# Meraki API
+# Get Networks in Org
+# Meraki API Reference:
 # https://developer.cisco.com/meraki/api-latest/#!list-the-networks-that-the-user-has-privileges-on-in-an-organization
-
-# Defining your API key as a variable in source code is not recommended
-# Instead, use an environment variable as shown under the Usage section
-# @ https://github.com/meraki/dashboard-api-python/
 
 import tokens
 import requests

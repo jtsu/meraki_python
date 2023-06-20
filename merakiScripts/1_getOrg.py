@@ -1,4 +1,7 @@
 # Python Script to get Org ID
+# Meraki API Reference: 
+# https://developer.cisco.com/meraki/api-latest/#!list-the-organizations-that-the-user-has-privileges-on
+
 
 # Import Python Modules
 import tokens

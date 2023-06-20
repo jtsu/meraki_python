@@ -2,6 +2,10 @@
 # Check Meraki API Dashboard Docs for Resource Path
 # https://developer.cisco.com/meraki/api-latest/
 
+# Meraki API Reference: 
+# https://developer.cisco.com/meraki/api-latest/#!return-the-device-inventory-for-an-organization
+
+
 import tokens
 import requests
 import json
