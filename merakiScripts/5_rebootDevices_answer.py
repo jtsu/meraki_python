@@ -7,10 +7,9 @@ import json
 import meraki
 import requests
 import tokens
-import tokens_jtsu as tokens
 
 # Define your variables
-device_serial_number = tokens.device_ap
+device_serial_number = ""
 device_serial_numbers = []
 
 # Function to reboot a single device using the request module
