@@ -1,16 +1,14 @@
-# Reboot Device by Serial numbers
+# Ping check connectivity status to the device by serial numbers
 # Meraki API Reference:
-# https://developer.cisco.com/meraki/api-latest/#!reboot-a-device
+# https://developer.cisco.com/meraki/api-latest/#!return-a-ping-device-job
 
 import time
 import json
 import meraki
-import requests
 import tokens
 
 # Define your variables
 device_serial_number = ""
-device_serial_numbers = []
 
 dashboard = meraki.DashboardAPI(tokens.API_KEY, suppress_logging=True)
 
@@ -21,7 +19,6 @@ def queue_ping_job(device_serial):
         device_serial,
         count=3
     )
-
     return response["pingId"]
 
 
@@ -30,7 +27,6 @@ def get_ping_job(device_serial, ping_id):
     response = dashboard.devices.getDeviceLiveToolsPingDevice(
         device_serial, ping_id
     )
-
     print(response)
 
 
